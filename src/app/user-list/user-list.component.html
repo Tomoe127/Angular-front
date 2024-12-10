@@ -13,6 +13,7 @@
             <th>Nombre</th>
             <th>Email</th>
             <th>Rol</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,12 @@
                 <td>{{ user.nombre }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.nombreRol }}</td>
+                <td>
+                    <a class="btn btn-info btn-sm" [routerLink]="['/usuarios', user.id]">
+                        Ver Detalles
+                    </a>
+                </td>
+
             </tr>
         }
     </tbody>
