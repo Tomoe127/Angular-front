@@ -17,4 +17,4 @@ export const routes: Routes = [
         path: 'new',
         loadComponent: () => import('./user-form/user-form.component')
     },
-]
+

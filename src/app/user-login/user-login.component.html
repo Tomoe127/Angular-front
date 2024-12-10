@@ -1,0 +1,44 @@
+<p>user-login works!</p>
+<div class="text-end">
+    <button class="btn btn-primary" routerLink="/new">
+        Nuevo Usuario
+    </button>
+</div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header text-center">
+            <h3>Login</h3>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="formlogin" (ngSubmit)="login()" >
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="Ingresa tu email"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control"
+                  formControlName="contrasenia"
+                  placeholder="Ingresa tu contraseña"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100" [disabled]="formlogin.invalid">Ingresar</button>
+            </form>
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
