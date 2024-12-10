@@ -9,9 +9,15 @@ export class UserService {
   private http = inject(HttpClient);
 
   listUsers() {
-    return this.http.get('http://localhost:8080/api/usuarios');
+    return this.http.get('http://localhost:8080/maintenance/usuarios');
   }
+
   createUser(user: any) {
-    return this.http.post('http://localhost:8080/api/ingreso', user, { responseType: 'text' });
+    return this.http.post('http://localhost:8080/maintenance/ingreso', user, { responseType: 'text' });
+  }
+
+  login(email: string, contrasenia: string) {
+    const user = { email, contrasenia };
+    return this.http.post('http://localhost:8080/maintenance/login', user, { responseType: 'text' });
   }
 }

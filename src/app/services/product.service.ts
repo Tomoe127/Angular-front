@@ -9,7 +9,7 @@ export class ProductService {
   private http = inject(HttpClient);
 
   listProducts() {
-    return this.http.get('http://localhost:8080/api/productos');
+    return this.http.get('http://localhost:8080/maintenance/productos');
   }
 
 }
