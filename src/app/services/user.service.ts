@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
+import { inject, Injectable } from '@angular/core'
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,7 @@ import { inject, Injectable } from '@angular/core';
 export class UserService {
 
   private http = inject(HttpClient);
+
 
   listUsers() {
     return this.http.get('http://localhost:8080/maintenance/usuarios');
@@ -19,5 +20,5 @@ export class UserService {
   login(email: string, contrasenia: string) {
     const user = { email, contrasenia };
     return this.http.post('http://localhost:8080/maintenance/login', user, { responseType: 'text' });
-  }
-}
+
+}}
