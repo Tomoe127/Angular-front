@@ -12,7 +12,7 @@ export class UserService {
   listUsers() {
     return this.http.get('http://localhost:8080/maintenance/usuarios');
   }
-
+  
   createUser(user: any) {
     return this.http.post('http://localhost:8080/maintenance/ingreso', user, { responseType: 'text' });
   }
@@ -22,3 +22,4 @@ export class UserService {
     return this.http.post('http://localhost:8080/maintenance/login', user, { responseType: 'text' });
 
 }}
+

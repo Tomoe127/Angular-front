@@ -7,6 +7,7 @@
             <th>Nombre</th>
             <th>Email</th>
             <th>Rol</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +17,16 @@
                 <td>{{ user.nombre }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.nombreRol }}</td>
+                <td>
+                    <div>
+                    <a class="btn btn-info btn-sm" [routerLink]="['/usuarios', user.id]">
+                        Ver Detalles
+                    </a>
+                    <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">
+                        Eliminar
+                    </button>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>
