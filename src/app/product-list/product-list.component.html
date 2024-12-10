@@ -1,0 +1,23 @@
+<h2 class="mb-5">Productos</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Stock</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (product of products; track product.id) {
+            <tr>
+                <td>{{ product.nombre }}</td>
+                <td>{{ product.descripcion }}</td>
+                <td>{{ product.precio }}</td>
+                <td>{{ product.stock }}</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
