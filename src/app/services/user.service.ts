@@ -11,12 +11,16 @@ export class UserService {
   listUsers () {
     return this.http.get('http://localhost:8080/maintenance/usuarios')
   }
-  createUser (user: any) {
-    return this.http.post('http://localhost:8080/maintenance/registerUsuario', user, { responseType: 'text' })
-  }
-
   getUserById (id: number) {
     return this.http.get(`http://localhost:8080/maintenance/usuarios?id=${id}`)
   }
-
+  createUser (user: any) {
+    return this.http.post('http://localhost:8080/maintenance/registerUsuario', user, { responseType: 'text' })
+  }
+  deleteUser (id: number) {
+    return this.http.post(`http://localhost:8080/maintenance/deleteUsuario?id=${id}`, null)
+  }
+  updateUser (user: any) {
+    return this.http.post('http://localhost:8080/maintenance/updateUsuario', user, { responseType: 'text' })
+  }
 }

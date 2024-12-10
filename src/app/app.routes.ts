@@ -17,4 +17,8 @@ export const routes: Routes = [
         path: 'new',
         loadComponent: () => import('./user-form/user-form.component')
     },
+    {
+        path: '',
+        loadComponent: () => import('./user-login/user-login.component')
+    },
 ]
