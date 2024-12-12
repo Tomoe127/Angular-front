@@ -6,22 +6,29 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @for (product of products; track product.id) {
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
-                    <img src="{{ product.imagen }}" alt="{{ product.nombre }}" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-xl mb-2">{{ product.nombre }}</h3>
-                        <p class="text-gray-700 mb-2">{{ product.descripcion }}</p>
-                        <p class="text-lg font-semibold text-gray-800">{{ product.precio }}</p>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
+                    <div class="p-6">
+                        
+                        <h3 class="font-bold text-2xl mb-2 text-gray-900">{{ product.nombre }}</h3>
+                        <p class="text-gray-600 mb-4">{{ product.descripcion }}</p>
+
+                        <!-- Precio con símbolo de moneda -->
+                        <p class="text-xl font-semibold text-gray-800">
+                            S/. {{ product.precio }}
+                        </p>
+
+                        <!-- Botón de añadir al carrito -->
                         <button
-        (click)="addToCart(product)"
-        class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
-      >
-        Comprar
-      </button> 
+                            (click)="addToCart(product)"
+                            class="w-full mt-4 bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            Añadir al carrito
+                        </button>
                     </div>
                 </div>
             }
         </div>
     </section>
 </div>
+
 <app-footer></app-footer>
