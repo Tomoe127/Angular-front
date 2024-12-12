@@ -1,0 +1,142 @@
+<!-- registro.component.html -->
+<div class="min-vh-100 bg-light d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card border-0 shadow-lg">
+          <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">
+              <i class="bi bi-person-plus-fill me-2"></i>
+              Registro de Usuario
+            </h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+              <!-- Nombre -->
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  id="nombre"
+                  formControlName="nombre"
+                  class="form-control"
+                  placeholder="Ingresa tu nombre completo"
+                />
+                <label for="nombre">
+                  <i class="bi bi-person me-2"></i> Nombre Completo
+                </label>
+                <div
+                  *ngIf="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched"
+                  class="text-danger small mt-1 bi bi-exclamation-circle me-1"
+                >
+                  El nombre es obligatorio
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  class="form-control"
+                  placeholder="Ingresa tu correo electrónico"
+                />
+                <label for="email">
+                  <i class="bi bi-envelope me-2"></i> Correo Electrónico
+                </label>
+                <div
+                  *ngIf="registroForm.get('email')?.invalid && registroForm.get('email')?.touched"
+                  class="text-danger small mt-1 bi bi-exclamation-circle me-1"
+                >
+                  <span *ngIf="registroForm.get('email')?.errors?.['required']">
+                    El correo es obligatorio
+                  </span>
+                  <span *ngIf="registroForm.get('email')?.errors?.['email']">
+                    Ingresa un correo válido
+                  </span>
+                </div>
+              </div>
+
+              <!-- Contraseña -->
+              <div class="form-floating mb-3 position-relative">
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  class="form-control"
+                  id="contrasenia"
+                  formControlName="contrasenia"
+                  placeholder="Ingresa tu contraseña"
+                />
+                <label for="contrasenia">
+                  <i class="bi bi-key-fill me-2"></i> Contraseña
+                </label>
+                <i
+                  [ngClass]="{'bi-eye-slash-fill': !showPassword, 'bi-eye-fill': showPassword}"
+                  class="bi position-absolute top-50 end-0 translate-middle-y me-3 cursor-pointer"
+                  (click)="togglePasswordVisibility()"
+                  [style.transition]="'all 0.3s ease'"
+                ></i>
+                <div
+                  *ngIf="registroForm.get('contrasenia')?.invalid && registroForm.get('contrasenia')?.touched"
+                  class="text-danger small mt-1 bi bi-exclamation-circle me-1"
+                >
+                  <span *ngIf="registroForm.get('contrasenia')?.errors?.['required']">
+                    La contraseña es requerida
+                  </span>
+                  <span *ngIf="registroForm.get('contrasenia')?.errors?.['minlength']">
+                    La contraseña debe tener al menos 6 caracteres
+                  </span>
+                </div>
+              </div>
+
+              <!-- Confirmar Contraseña -->
+              <div class="form-floating mb-3 position-relative">
+                <input
+                  [type]="showConfirmPassword ? 'text' : 'password'"
+                  id="confirmarContrasenia"
+                  formControlName="confirmarContrasenia"
+                  class="form-control"
+                  placeholder="Confirma tu contraseña"
+                />
+                <label for="confirmarContrasenia">
+                  <i class="bi bi-key-fill me-2"></i> Confirmar Contraseña
+                </label>
+                <i
+                  [ngClass]="{'bi-eye-slash-fill': !showConfirmPassword, 'bi-eye-fill': showConfirmPassword}"
+                  class="bi position-absolute top-50 end-0 translate-middle-y me-3 cursor-pointer"
+                  (click)="toggleConfirmPasswordVisibility()"
+                  [style.transition]="'all 0.3s ease'"
+                ></i>
+                <div
+                  *ngIf="registroForm.get('confirmarContrasenia')?.invalid && 
+                          (registroForm.get('confirmarContrasenia')?.touched || 
+                          registroForm.get('confirmarContrasenia')?.errors?.['mismatch'])"
+                  class="text-danger small mt-1 bi bi-exclamation-circle me-1"
+                >
+                  Las contraseñas no coinciden
+                </div>
+              </div>
+
+              <!-- Botón de Registro -->
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg w-100 mt-3"
+                [disabled]="registroForm.invalid"
+              >
+                <i class="bi bi-check-circle me-2"></i> Registrarse
+              </button>
+            </form>
+
+            <!-- Mensaje de error -->
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+              <i class="bi bi-exclamation-triangle me-2"></i>
+              {{ errorMessage }}
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <small class="text-muted">¿Ya tienes una cuenta? <a href="/login" class="text-primary">Inicia sesión</a></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

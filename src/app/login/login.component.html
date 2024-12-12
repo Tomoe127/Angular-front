@@ -1,0 +1,98 @@
+<div class="min-vh-100 bg-light d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card border-0 shadow-lg">
+          <div class="card-body p-5">
+            <!-- Logo/Header Section -->
+            <div class="text-center mb-4">
+              <i class="bi bi-shield-lock display-1 text-primary"></i>
+              <h2 class="fw-bold mt-3 mb-4">Iniciar Sesión</h2>
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <!-- Email Field -->
+              <div class="form-floating mb-4">
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="email" 
+                  formControlName="email" 
+                  placeholder="nombre@ejemplo.com"
+                  [ngClass]="{'is-invalid': loginForm.get('email')?.invalid && 
+                              (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)}"
+                  [disabled]="isLoading"> <!-- Deshabilitar mientras se envía -->
+                <label for="email">
+                  <i class="bi bi-envelope-fill me-2"></i>Email
+                </label>
+                <div class="invalid-feedback">
+                  <i class="bi bi-exclamation-circle me-1"></i>
+                  <span *ngIf="loginForm.get('email')?.errors?.['required']">
+                    El email es requerido
+                  </span>
+                  <span *ngIf="loginForm.get('email')?.errors?.['email']">
+                    Ingresa un email válido
+                  </span>
+                </div>
+              </div>
+
+              <!-- Password Field -->
+              <div class="form-floating mb-4 position-relative"> <!-- Asegura la posición del ícono -->
+                <input 
+                  [type]="showPassword ? 'text' : 'password'" 
+                  class="form-control" 
+                  id="contrasenia" 
+                  formControlName="contrasenia" 
+                  placeholder="Contraseña"
+                  [ngClass]="{'is-invalid': loginForm.get('contrasenia')?.invalid && 
+                              (loginForm.get('contrasenia')?.dirty || loginForm.get('contrasenia')?.touched)}"
+                  [disabled]="isLoading"> <!-- Deshabilitar mientras se envía -->
+                <label for="contrasenia">
+                  <i class="bi bi-key-fill me-2"></i>Contraseña
+                </label>
+                <button 
+                  class="btn position-absolute end-0 top-50 translate-middle-y me-2 text-muted"
+                  type="button"
+                  (click)="togglePasswordVisibility()"
+                  tabindex="-1"> <!-- tabindex para evitar foco -->
+                  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                </button>
+                <div class="invalid-feedback">
+                  <i class="bi bi-exclamation-circle me-1"></i>
+                  <span *ngIf="loginForm.get('contrasenia')?.errors?.['required']">
+                    La contraseña es requerida
+                  </span>
+                  <span *ngIf="loginForm.get('contrasenia')?.errors?.['minlength']">
+                    La contraseña debe tener al menos 6 caracteres
+                  </span>
+                </div>
+              </div>
+
+              <!-- Error Message -->
+              <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                {{ errorMessage }}
+                <button type="button" class="btn-close" (click)="errorMessage = null"></button>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-grid gap-2">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary btn-lg"
+                  [disabled]="loginForm.invalid || isLoading">
+                  <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                  <i *ngIf="!isLoading" class="bi bi-box-arrow-in-right me-2"></i>
+                  Iniciar Sesión
+                </button>
+                <a routerLink="/registro" class="btn btn-outline-secondary btn-lg">
+                  <i class="bi bi-person-plus-fill me-2"></i>Registrarse
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

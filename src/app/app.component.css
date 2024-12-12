@@ -1,0 +1,7 @@
+/* Ajusta el contenedor del router */
+.container-fluid {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: none; /* Elimina cualquier fondo no deseado */
+}
