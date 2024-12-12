@@ -7,36 +7,50 @@ export class CarritoService {
   private carrito: any[] = [];
 
   constructor() {
-    // Intentamos cargar los productos del carrito desde localStorage
     const carritoGuardado = localStorage.getItem('carrito');
     if (carritoGuardado) {
       this.carrito = JSON.parse(carritoGuardado);
     }
   }
 
-  // Método para agregar un producto al carrito
   agregarProducto(producto: any): void {
-    this.carrito.push(producto);
-    this.actualizarCarrito(); // Guardamos los cambios en localStorage
+    const productoExistente = this.carrito.find((p) => p.id === producto.id);
+
+    if (productoExistente) {
+      productoExistente.cantidad++;
+    } else {
+      const nuevoProducto = { ...producto, cantidad: 1 };
+      this.carrito.push(nuevoProducto);
+    }
+    this.actualizarCarrito();
   }
 
-  // Método para obtener los productos en el carrito
   obtenerProductos(): any[] {
     return this.carrito;
   }
 
-  // Método para eliminar un producto del carrito
+  // Modificado para reducir la cantidad en lugar de eliminar el producto
   eliminarProducto(id: number): void {
-    this.carrito = this.carrito.filter((producto) => producto.id !== id);
-    this.actualizarCarrito(); // Guardamos los cambios en localStorage
+    const producto = this.carrito.find((p) => p.id === id);
+
+    if (producto) {
+      if (producto.cantidad > 1) {
+        producto.cantidad--; // Reducir la cantidad
+      } else {
+        this.carrito = this.carrito.filter((p) => p.id !== id); // Eliminar el producto si la cantidad es 1
+      }
+    }
+
+    this.actualizarCarrito();
   }
 
-  // Método para calcular el precio total del carrito
   calcularPrecioTotal(): number {
-    return this.carrito.reduce((total, producto) => total + producto.precio, 0);
+    return this.carrito.reduce(
+      (total, producto) => total + producto.precio * producto.cantidad,
+      0
+    );
   }
 
-  // Método privado para actualizar el carrito en localStorage
   private actualizarCarrito(): void {
     localStorage.setItem('carrito', JSON.stringify(this.carrito));
   }

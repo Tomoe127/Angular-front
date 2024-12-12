@@ -1,0 +1,8 @@
+.swal-toast {
+  position: fixed; /* Esto asegura que la alerta está fija en la pantalla */
+  bottom: 20px; /* Coloca la alerta en la parte inferior */
+  left: 50%; /* Centra la alerta horizontalmente */
+  transform: translateX(-50%); /* Ajusta la posición para que esté perfectamente centrada */
+  max-width: 300px; /* Ancho máximo para que la alerta no se vea demasiado grande */
+  z-index: 9999; /* Asegura que la alerta esté por encima de otros elementos */
+}
