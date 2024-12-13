@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { VentaService } from './venta.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarritoService {
   private carrito: any[] = [];
+  
 
-  constructor() {
+  constructor(private ventaService: VentaService) {
     const carritoGuardado = localStorage.getItem('carrito');
     if (carritoGuardado) {
       this.carrito = JSON.parse(carritoGuardado);
@@ -53,5 +55,23 @@ export class CarritoService {
 
   private actualizarCarrito(): void {
     localStorage.setItem('carrito', JSON.stringify(this.carrito));
+  }
+
+  
+  checkout(usuarioId: number) {
+    const ventaData = {
+      usuarioId: usuarioId,
+      detalles: this.carrito.map(item => ({
+        productoId: item.id,
+        cantidad: item.cantidad
+      }))
+    };
+
+    return this.ventaService.registrarVenta(ventaData);
+  }
+
+  limpiarCarrito() {
+    this.carrito = [];
+    this.actualizarCarrito();
   }
 }
