@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { CarritoService } from '../services/carrito.service'; // Inyectamos el servicio del carrito
 import Swal from 'sweetalert2'; // Importa SweetAlert2
-
 import { HeaderComponent } from '../components/header/header.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
@@ -16,6 +15,14 @@ import { CommonModule } from '@angular/common';
 export default class ProductListComponent implements OnInit {
   products: any[] = [];
 
+  filteredProducts: any[] = [];	
+
+  isLoading: boolean =true
+
+  errorMessage: string = '';
+  noResults: boolean = false;
+  searchQuery: string = '';
+  
   constructor(
     private productService: ProductService,
     private carritoService: CarritoService  // Inyectamos el servicio para el carrito
@@ -25,6 +32,35 @@ export default class ProductListComponent implements OnInit {
     this.productService.listProducts().subscribe((products: any) => {
       this.products = products;
     });
+
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    this.productService.listProducts().subscribe(
+      (products: any) => {
+        this.products = products;
+        this.filteredProducts = [...this.products]; // Inicializa con todos los productos
+        this.isLoading = false; // Carga completada
+        this.noResults = this.filteredProducts.length === 0; // Verifica si no hay productos
+      },
+      (error) => {
+        this.errorMessage = 'Error al cargar los productos. Intente nuevamente más tarde.';
+        console.error('Error:', error);
+        this.isLoading = false; // Carga fallida
+      }
+    );
+  }
+
+  onSearch(event: Event): void {
+    const query = (event.target as HTMLInputElement).value.toLowerCase().trim();
+    this.searchQuery = query;
+    this.filteredProducts = this.products.filter(
+      (product) =>
+        product.nombre.toLowerCase().includes(query) || // Filtro por nombre
+        product.descripcion.toLowerCase().includes(query) // Filtro por descripción
+    );
+    this.noResults = this.filteredProducts.length === 0; 
   }
 
   // Método para añadir productos al carrito

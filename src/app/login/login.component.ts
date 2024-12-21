@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core'
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import { Router, RouterModule } from '@angular/router'
+import { UserService } from '../services/user.service'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-login',
@@ -25,35 +25,38 @@ export default class LoginComponent {
   isLoading = false;
   showPassword = false;
 
-  onSubmit() {
+  onSubmit () {
     if (this.loginForm.valid) {
-      this.isLoading = true;
-      this.errorMessage = null;
-      const { email, contrasenia } = this.loginForm.value;
-      
+      this.isLoading = true
+      this.errorMessage = null
+      const { email, contrasenia } = this.loginForm.value
+
       this.userService.login(email!, contrasenia!).subscribe({
-        next: (response) => {
-          console.log('Login successful', response);
-          // Aquí puedes manejar la respuesta exitosa, por ejemplo:
-          // - Guardar el token en localStorage
-          // - Redirigir al usuario a la página principal
-          this.router.navigate(['/productos']);
+        next: (response: any) => {
+          console.log('Login successful', response)
+
+          // Guardar token en localStorage
+          localStorage.setItem('authToken', response)
+          this.userService.getUserBySession(email!)
+          // Redirigir al usuario a la página principal
+          this.router.navigate(['/productos'])
         },
         error: (error) => {
-          console.error('Login failed', error);
-          this.errorMessage = 'Login fallido. Por favor, verifica tus credenciales.';
-          this.isLoading = false;
+          console.error('Login failed', error)
+          this.errorMessage = 'Login fallido. Por favor, verifica tus credenciales.'
+          this.isLoading = false
         },
         complete: () => {
-          this.isLoading = false;
+          this.isLoading = false
         }
-      });
+      })
     } else {
-      this.loginForm.markAllAsTouched();
+      this.loginForm.markAllAsTouched()
     }
   }
 
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
+
+  togglePasswordVisibility () {
+    this.showPassword = !this.showPassword
   }
 }
