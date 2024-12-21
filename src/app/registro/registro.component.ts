@@ -33,9 +33,9 @@ export default class RegistroComponent implements OnInit {
 
   ngOnInit(): void {
     this.registroForm = this.fb.group({
-      nombre: ['', [Validators.required, Validators.maxLength(50)]],
-      email: ['', [Validators.required, Validators.email]],
-      contrasenia: ['', [Validators.required, Validators.minLength(6)]],
+      nombre: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
+      contrasenia: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
       confirmarContrasenia: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
   }

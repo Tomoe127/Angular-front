@@ -17,8 +17,8 @@ export default class LoginComponent {
   private userService = inject(UserService);
 
   loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    contrasenia: ['', [Validators.required, Validators.minLength(6)]]
+    email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
+    contrasenia: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]]
   });
 
   errorMessage: string | null = null;

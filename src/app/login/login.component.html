@@ -2,17 +2,17 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-        <div class="card border-0 shadow-lg">
-          <div class="card-body p-5">
+        <div class="border-0 shadow-lg card">
+          <div class="p-5 card-body">
             <!-- Logo/Header Section -->
-            <div class="text-center mb-4">
+            <div class="mb-4 text-center">
               <i class="bi bi-shield-lock display-1 text-primary"></i>
-              <h2 class="fw-bold mt-3 mb-4">Iniciar Sesión</h2>
+              <h2 class="mt-3 mb-4 fw-bold">Iniciar Sesión</h2>
             </div>
 
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <!-- Email Field -->
-              <div class="form-floating mb-4">
+              <div class="mb-4 form-floating">
                 <input 
                   type="email" 
                   class="form-control" 
@@ -33,11 +33,14 @@
                   <span *ngIf="loginForm.get('email')?.errors?.['email']">
                     Ingresa un email válido
                   </span>
+                  <span *ngIf="loginForm.get('email')?.errors?.['maxlength']">
+                    El email no puede exceder los 50 caracteres
+                  </span>
                 </div>
               </div>
 
               <!-- Password Field -->
-              <div class="form-floating mb-4 position-relative"> <!-- Asegura la posición del ícono -->
+              <div class="mb-4 form-floating position-relative"> <!-- Asegura la posición del ícono -->
                 <input 
                   [type]="showPassword ? 'text' : 'password'" 
                   class="form-control" 
@@ -65,6 +68,9 @@
                   <span *ngIf="loginForm.get('contrasenia')?.errors?.['minlength']">
                     La contraseña debe tener al menos 6 caracteres
                   </span>
+                  <span *ngIf="loginForm.get('contrasenia')?.errors?.['maxlength']">
+                    La contraseña no puede exceder los 30 caracteres
+                  </span>
                 </div>
               </div>
 
@@ -76,7 +82,7 @@
               </div>
 
               <!-- Action Buttons -->
-              <div class="d-grid gap-2">
+              <div class="gap-2 d-grid">
                 <button 
                   type="submit" 
                   class="btn btn-primary btn-lg"
