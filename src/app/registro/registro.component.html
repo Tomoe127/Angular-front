@@ -3,8 +3,8 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-        <div class="card border-0 shadow-lg">
-          <div class="card-header bg-primary text-white text-center">
+        <div class="border-0 shadow-lg card">
+          <div class="text-center text-white card-header bg-primary">
             <h4 class="mb-0">
               <i class="bi bi-person-plus-fill me-2"></i>
               Registro de Usuario
@@ -13,7 +13,7 @@
           <div class="card-body">
             <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
               <!-- Nombre -->
-              <div class="form-floating mb-3">
+              <div class="mb-3 form-floating">
                 <input
                   type="text"
                   id="nombre"
@@ -26,14 +26,19 @@
                 </label>
                 <div
                   *ngIf="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched"
-                  class="text-danger small mt-1 bi bi-exclamation-circle me-1"
+                  class="mt-1 text-danger small bi bi-exclamation-circle me-1"
                 >
+                <span *ngIf="registroForm.get('nombre')?.errors?.['required']">
                   El nombre es obligatorio
+                </span>
+                <span *ngIf="registroForm.get('nombre')?.errors?.['maxlength']">
+                  El nombre no puede tener más de 50 caracteres
+                </span>
                 </div>
               </div>
 
               <!-- Email -->
-              <div class="form-floating mb-3">
+              <div class="mb-3 form-floating">
                 <input
                   type="email"
                   id="email"
@@ -46,7 +51,7 @@
                 </label>
                 <div
                   *ngIf="registroForm.get('email')?.invalid && registroForm.get('email')?.touched"
-                  class="text-danger small mt-1 bi bi-exclamation-circle me-1"
+                  class="mt-1 text-danger small bi bi-exclamation-circle me-1"
                 >
                   <span *ngIf="registroForm.get('email')?.errors?.['required']">
                     El correo es obligatorio
@@ -58,7 +63,7 @@
               </div>
 
               <!-- Contraseña -->
-              <div class="form-floating mb-3 position-relative">
+              <div class="mb-3 form-floating position-relative">
                 <input
                   [type]="showPassword ? 'text' : 'password'"
                   class="form-control"
@@ -71,13 +76,13 @@
                 </label>
                 <i
                   [ngClass]="{'bi-eye-slash-fill': !showPassword, 'bi-eye-fill': showPassword}"
-                  class="bi position-absolute top-50 end-0 translate-middle-y me-3 cursor-pointer"
+                  class="cursor-pointer bi position-absolute top-50 end-0 translate-middle-y me-3"
                   (click)="togglePasswordVisibility()"
                   [style.transition]="'all 0.3s ease'"
                 ></i>
                 <div
                   *ngIf="registroForm.get('contrasenia')?.invalid && registroForm.get('contrasenia')?.touched"
-                  class="text-danger small mt-1 bi bi-exclamation-circle me-1"
+                  class="mt-1 text-danger small bi bi-exclamation-circle me-1"
                 >
                   <span *ngIf="registroForm.get('contrasenia')?.errors?.['required']">
                     La contraseña es requerida
@@ -89,7 +94,7 @@
               </div>
 
               <!-- Confirmar Contraseña -->
-              <div class="form-floating mb-3 position-relative">
+              <div class="mb-3 form-floating position-relative">
                 <input
                   [type]="showConfirmPassword ? 'text' : 'password'"
                   id="confirmarContrasenia"
@@ -102,7 +107,7 @@
                 </label>
                 <i
                   [ngClass]="{'bi-eye-slash-fill': !showConfirmPassword, 'bi-eye-fill': showConfirmPassword}"
-                  class="bi position-absolute top-50 end-0 translate-middle-y me-3 cursor-pointer"
+                  class="cursor-pointer bi position-absolute top-50 end-0 translate-middle-y me-3"
                   (click)="toggleConfirmPasswordVisibility()"
                   [style.transition]="'all 0.3s ease'"
                 ></i>
@@ -110,7 +115,7 @@
                   *ngIf="registroForm.get('confirmarContrasenia')?.invalid && 
                           (registroForm.get('confirmarContrasenia')?.touched || 
                           registroForm.get('confirmarContrasenia')?.errors?.['mismatch'])"
-                  class="text-danger small mt-1 bi bi-exclamation-circle me-1"
+                  class="mt-1 text-danger small bi bi-exclamation-circle me-1"
                 >
                   Las contraseñas no coinciden
                 </div>
@@ -119,7 +124,7 @@
               <!-- Botón de Registro -->
               <button
                 type="submit"
-                class="btn btn-primary btn-lg w-100 mt-3"
+                class="mt-3 btn btn-primary btn-lg w-100"
                 [disabled]="registroForm.invalid"
               >
                 <i class="bi bi-check-circle me-2"></i> Registrarse
@@ -127,12 +132,12 @@
             </form>
 
             <!-- Mensaje de error -->
-            <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+            <div *ngIf="errorMessage" class="mt-3 text-center alert alert-danger">
               <i class="bi bi-exclamation-triangle me-2"></i>
               {{ errorMessage }}
             </div>
           </div>
-          <div class="card-footer text-center">
+          <div class="text-center card-footer">
             <small class="text-muted">¿Ya tienes una cuenta? <a href="/login" class="text-primary">Inicia sesión</a></small>
           </div>
         </div>
