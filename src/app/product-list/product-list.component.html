@@ -1,34 +1,41 @@
 <app-header></app-header>
-
-<div class="max-w-7xl mx-auto py-40">
-    <section class="mt-10">
-        <h2 class="text-3xl font-semibold mb-5 text-gray-800">Productos Disponibles</h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @for (product of products; track product.id) {
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
-                    <div class="p-6">
-                        
-                        <h3 class="font-bold text-2xl mb-2 text-gray-900">{{ product.nombre }}</h3>
-                        <p class="text-gray-600 mb-4">{{ product.descripcion }}</p>
-
-                        <!-- Precio con símbolo de moneda -->
-                        <p class="text-xl font-semibold text-gray-800">
-                            S/. {{ product.precio }}
-                        </p>
-
-                        <!-- Botón de añadir al carrito -->
-                        <button
-                            (click)="addToCart(product)"
-                            class="w-full mt-4 bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                            Añadir al carrito
-                        </button>
+    <div class="px-4 py-20 mx-auto max-w-7xl ">
+        <section class="mt-10">
+            <div class="mb-6">
+                <input
+                    type="text"
+                    (input)="onSearch($event)"
+                    placeholder="Buscar productos..."
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
+        </section>
+        <section class="mt-10 min-h-[600px]" >
+            <h2 class="mb-5 text-3xl font-bold text-gray-800">Productos Disponibles</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div *ngFor="let product of filteredProducts" class="w-full transition-transform duration-300 ease-in-out transform bg-white rounded-lg shadow-lg card hover:scale-105 hover:shadow-2xl">
+                    <div class="relative mb-4">
+                        <div class="absolute px-3 py-1 text-xs font-semibold text-white uppercase rounded-full shadow-md top-4 left-4 bg-gradient-to-r from-teal-400 to-teal-500">
+                            NUEVO
+                        </div>
+                    </div>
+                    <div class="p-6 card-body h-[280px] flex flex-col justify-between">
+                        <div>
+                            <h3 class="mb-2 text-xl font-semibold text-gray-900">{{ product.nombre }}</h3>
+                            <p class="mb-4 text-sm text-gray-600 line-clamp-3">{{ product.descripcion }}</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-gray-800">S/. {{ product.precio }}</p>
+                            <button
+                                (click)="addToCart(product)"
+                                class="w-full py-3 mt-4 text-white transition duration-200 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700"
+                            >
+                                Añadir al carrito
+                            </button>
+                        </div>
                     </div>
                 </div>
-            }
-        </div>
-    </section>
-</div>
-
+            </div>
+        </section>
+    </div>
 <app-footer></app-footer>

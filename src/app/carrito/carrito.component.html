@@ -1,10 +1,10 @@
 <app-header></app-header>
-
+<div class='min-h-screen'>
 <div class="container pt-40 mx-auto">
   <div class="flex flex-col md:flex-row">
     <!-- Carrito de Compras -->
-    <div class="p-4 bg-white rounded-lg shadow-md md:w-3/4">
-      <div class="flex items-center justify-between pb-2 mb-4 border-b">
+    <div class="p-4 mb-8 bg-white rounded-lg shadow-md md:w-3/4">
+      <div class="flex items-center justify-between pb-2 mb-4 border-b ">
         <h4 class="text-xl font-bold text-gray-800">Carrito de compras</h4>
         <span class="text-sm text-gray-500">{{ carritoProductos.length }} items</span>
       </div>
@@ -30,7 +30,7 @@
     </div>
 
     <!-- Resumen del Pedido -->
-    <div class="p-4 mt-4 bg-white rounded-lg shadow-md md:w-1/4 md:mt-0">
+    <div class="p-4 mb-8 ml-6 bg-white rounded-lg shadow-md md:w-1/4 md:mt-0">
       <h5 class="mb-4 text-lg font-semibold">Resumen</h5>
       <div class="flex justify-between mb-2">
         <span>ITEMS {{ carritoProductos.length }}</span>
@@ -54,6 +54,7 @@
       </button>
     </div>
   </div>
+</div>
 </div>
 
 <app-footer></app-footer>
