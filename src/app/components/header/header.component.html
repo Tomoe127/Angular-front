@@ -2,7 +2,11 @@
   <div class="container flex items-center justify-between p-4 mx-auto">
     <a href="/productos" class="text-2xl font-bold hover:no-underline">Tienda Zapatillas</a>
     <div class="flex items-center space-x-6">
-      <a routerLink="/login" class="text-blue-200 transition duration-200 hover:text-blue-400">Login</a>
+      <button 
+        (click)="logout()"
+        class="px-4 py-2 text-sm font-semibold text-white transition duration-200 bg-red-500 rounded hover:bg-red-600">
+        Logout
+      </button>
       <a routerLink="/carrito" class="relative inline-flex items-center px-6 py-3 text-white transition-transform transform rounded-full shadow-lg bg-gradient-to-r from-teal-500 to-blue-700 hover:from-teal-600 hover:to-blue-800 hover:shadow-xl hover:scale-105">
         <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.344 2.672M7 13h10l4-8H5.672m4.672 8l-1 4m6 0l-1-4M6 16a1 1 0 100 2 1 1 0 000-2zm10 0a1 1 0 100 2 1 1 0 000-2z" />

@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
+import { Router } from '@angular/router'
+import { CarritoService } from './carrito.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private http = inject(HttpClient);
+  constructor(private http: HttpClient, private router: Router, private carritoService: CarritoService) {}
 
   createUser (user: any) {
     return this.http.post('http://localhost:8080/api/registerUsuario', user, { responseType: 'text' })
@@ -17,4 +19,11 @@ export class UserService {
     return this.http.post('http://localhost:8080/api/login', user, { responseType: 'text' })
 
   }
+
+  logout() {
+    this.carritoService.limpiarCarrito();
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login']);
+  }
+  
 }

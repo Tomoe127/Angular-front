@@ -30,13 +30,15 @@ export default class LoginComponent {
       this.isLoading = true;
       this.errorMessage = null;
       const { email, contrasenia } = this.loginForm.value;
-      
+  
       this.userService.login(email!, contrasenia!).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           console.log('Login successful', response);
-          // Aquí puedes manejar la respuesta exitosa, por ejemplo:
-          // - Guardar el token en localStorage
-          // - Redirigir al usuario a la página principal
+  
+          // Guardar token en localStorage
+          localStorage.setItem('authToken', response);
+  
+          // Redirigir al usuario a la página principal
           this.router.navigate(['/productos']);
         },
         error: (error) => {
@@ -52,6 +54,7 @@ export default class LoginComponent {
       this.loginForm.markAllAsTouched();
     }
   }
+  
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;

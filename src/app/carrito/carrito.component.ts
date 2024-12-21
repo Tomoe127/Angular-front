@@ -13,7 +13,7 @@ import { RouterLink, Router } from '@angular/router';
 })
 export class CarritoComponent implements OnInit {
   carritoProductos: any[] = [];
-
+  showModal: boolean = false;
   constructor(private carritoService: CarritoService, private router: Router) {}
 
   ngOnInit(): void {
@@ -52,5 +52,29 @@ export class CarritoComponent implements OnInit {
         }
       }
     );
+
+
   }
+  agregarCantidad(productId: number): void {
+    const producto = this.carritoProductos.find(p => p.id === productId);
+    if (producto) {
+      producto.cantidad += 1;
+    }
+  }
+  openModal() {
+    this.showModal = true;
+  }
+
+  // Método para cerrar el modal
+  cerrarModal() {
+    this.showModal = false;
+  }
+
+  // Método para confirmar el pago
+  confirmarPago() {
+    this.showModal = false;
+    // Aquí puedes agregar el proceso de pago o redirigir a otra página
+    this.router.navigate(['/carrito']);
+  }
+
 }

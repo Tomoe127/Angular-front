@@ -20,7 +20,9 @@ export default class ProductListComponent implements OnInit {
   isLoading: boolean =true
 
   errorMessage: string = '';
-
+  noResults: boolean = false;
+  searchQuery: string = '';
+  
   constructor(
     private productService: ProductService,
     private carritoService: CarritoService  // Inyectamos el servicio para el carrito
@@ -40,6 +42,7 @@ export default class ProductListComponent implements OnInit {
         this.products = products;
         this.filteredProducts = [...this.products]; // Inicializa con todos los productos
         this.isLoading = false; // Carga completada
+        this.noResults = this.filteredProducts.length === 0; // Verifica si no hay productos
       },
       (error) => {
         this.errorMessage = 'Error al cargar los productos. Intente nuevamente más tarde.';
@@ -51,11 +54,13 @@ export default class ProductListComponent implements OnInit {
 
   onSearch(event: Event): void {
     const query = (event.target as HTMLInputElement).value.toLowerCase().trim();
+    this.searchQuery = query;
     this.filteredProducts = this.products.filter(
       (product) =>
         product.nombre.toLowerCase().includes(query) || // Filtro por nombre
         product.descripcion.toLowerCase().includes(query) // Filtro por descripción
     );
+    this.noResults = this.filteredProducts.length === 0; 
   }
 
   // Método para añadir productos al carrito

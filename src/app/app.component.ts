@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   selector: 'app-root',
   imports: [RouterOutlet, ReactiveFormsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'productoslist';
